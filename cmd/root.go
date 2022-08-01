@@ -49,7 +49,7 @@ func Execute() {
 	fmt.Print("The following tasks are incomplete: \n")
 	for k, v := range todoList {
 		if !v {
-			fmt.Print(k)
+			fmt.Printf("%s\n", k)
 		}
 	}
 }
