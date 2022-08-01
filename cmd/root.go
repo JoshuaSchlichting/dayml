@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 
@@ -16,20 +15,10 @@ func init() {
 
 // rootCmd represents the base command when called without any subcommands
 
-// get readme.md text
-func getReadme() string {
-	readme, err := ioutil.ReadFile("README.md")
-	if err != nil {
-		log.Fatal(err)
-	}
-	return string(readme)
-}
-
 var rootCmd = &cobra.Command{
 	Use:   "dayml",
 	Short: "A simple cli tool for parsing TODO information from notes written in YAML.",
-	// get Long from README.md
-	Long: getReadme(),
+
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
@@ -43,9 +32,17 @@ func Execute() {
 		os.Exit(1)
 	}
 	filePath := rootCmd.Flag("file").Value.String()
-	log.Print(filePath)
-	todoList, _ := GetTodoListFromFile(filePath)
+	if filePath == "" {
+		log.Fatal("Please specify a file path")
+	}
 
+	todoList, _ := GetTodoListFromFile(filePath)
+	if todoList == nil {
+		log.Fatal("Error parsing file")
+	}
+	if len(todoList) == 0 {
+		log.Fatal("No TODO items found")
+	}
 	fmt.Print("The following tasks are incomplete: \n")
 	for k, v := range todoList {
 		if !v {
