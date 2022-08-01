@@ -26,14 +26,6 @@ func GetTodoListFromFile(filePath string) (map[string]bool, error) {
 	return GetToDoList(rootObjects), nil
 }
 
-func ReadYamlFile(filePath string) ([]byte, error) {
-	fileContents, err := ioutil.ReadFile(filePath)
-	if err != nil {
-		return nil, err
-	}
-	return fileContents, nil
-}
-
 func NewDaymlList(yamlPayload []byte) (rootObjects []DaymlRootObject, err error) {
 	interfaceMap := make(map[int]map[string]interface{})
 	err = yaml.Unmarshal(yamlPayload, interfaceMap)
