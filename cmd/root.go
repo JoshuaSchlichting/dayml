@@ -17,7 +17,7 @@ func init() {
 
 var rootCmd = &cobra.Command{
 	Use:   "dayml",
-	Short: "A simple cli tool for parsing TODO information from notes written in YAML.",
+	Short: "dayml - A simple cli tool for parsing TODO information from notes written in YAML.",
 
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
@@ -35,12 +35,12 @@ func Execute() {
 	if filePath == "" {
 		filePath = ".dayml.yml"
 
-		fmt.Printf("No file path provided. Checking for %s in current working directory....", filePath)
+		fmt.Printf("No file path provided. Checking for %s in current working directory....\n", filePath)
 		if _, err := os.Stat(filePath); os.IsNotExist(err) {
-			log.Fatal("No file found at " + filePath)
+			fmt.Printf("No file found at %s\n", filePath)
 		}
 
-		log.Fatal("Please specify a file path")
+		fmt.Printf("Please specify a file path via \"--file\" or create a .dayml.yml file in the current working directory.\n")
 	}
 
 	todoList, _ := GetTodoListFromFile(filePath)
