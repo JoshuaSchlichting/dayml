@@ -18,7 +18,7 @@ This means that you could have other tags or data in the document, but it will n
 
 Or, execute `dayml` from a directory with a `.dayml.yml` file in it.
 
-## Installing
+## *Installing*
 Executing `./build.sh` will output the file to `./bin/dayml_<os>_<arch>`
 
 Executing `./build.sh --install` will output the file to `./bin/dayml_<os>_<arch>` and also copy the binary to `/usr/local/bin`. 
