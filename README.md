@@ -3,7 +3,7 @@
 `dayml` is a simple tool for parsing TODO task status from daily notes written in `.yml` files.
 
 ## *`.yml` files*
-`.yml` files contain _at least_ the following:
+`.yml` files shall _at least_ contain the following:
 ```
 <yyyymmdd>:
   todo:
