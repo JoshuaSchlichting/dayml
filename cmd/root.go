@@ -33,6 +33,13 @@ func Execute() {
 	}
 	filePath := rootCmd.Flag("file").Value.String()
 	if filePath == "" {
+		filePath = ".dayml.yml"
+
+		fmt.Printf("No file path provided. Checking for %s in current working directory....", filePath)
+		if _, err := os.Stat(filePath); os.IsNotExist(err) {
+			log.Fatal("No file found at " + filePath)
+		}
+
 		log.Fatal("Please specify a file path")
 	}
 
@@ -60,5 +67,5 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().StringP("file", "f", "", "Help message for toggle")
+	rootCmd.Flags().StringP("file", "f", "", "Filepath to dayml compliant YAML file (.yml, .yaml)")
 }
