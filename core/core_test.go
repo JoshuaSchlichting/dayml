@@ -1,4 +1,4 @@
-package main
+package core
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ var payload []byte
 
 func init() {
 	payload = []byte(`
-20220101:
+20220102:
   activities:
     - activity1
     - activity2
@@ -21,7 +21,7 @@ func init() {
 20220101:
   activities:
     - activity1
-	- activity2
+    - activity2
   meetings:
     - meeting1
   todo:
@@ -38,7 +38,7 @@ func TestCreateDaymlFromPayload(t *testing.T) {
 	}
 	fmt.Print(dayml)
 
-	if dayml[0].Date != 20220101 {
+	if dayml[1].Date != 20220101 || dayml[1].Todo["task1"] != false {
 		t.Errorf("error: %v", err)
 	}
 

@@ -1,26 +1,35 @@
-/*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-
-*/
 package cmd
 
 import (
+	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 
 	"github.com/spf13/cobra"
 )
 
+var GetTodoListFromFile func(string) (map[string]bool, error)
+
+func init() {
+}
+
 // rootCmd represents the base command when called without any subcommands
+
+// get readme.md text
+func getReadme() string {
+	readme, err := ioutil.ReadFile("README.md")
+	if err != nil {
+		log.Fatal(err)
+	}
+	return string(readme)
+}
+
 var rootCmd = &cobra.Command{
 	Use:   "dayml",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "A simple cli tool for parsing TODO information from notes written in YAML.",
+	// get Long from README.md
+	Long: getReadme(),
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
@@ -35,6 +44,14 @@ func Execute() {
 	}
 	filePath := rootCmd.Flag("file").Value.String()
 	log.Print(filePath)
+	todoList, _ := GetTodoListFromFile(filePath)
+
+	fmt.Print("The following tasks are incomplete: \n")
+	for k, v := range todoList {
+		if !v {
+			fmt.Print(k)
+		}
+	}
 }
 
 func init() {

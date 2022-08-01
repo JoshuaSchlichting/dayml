@@ -1,11 +1,11 @@
-/*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-
-*/
 package main
 
-import "dayml/cmd"
+import (
+	"dayml/cmd"
+	"dayml/core"
+)
 
 func main() {
+	cmd.GetTodoListFromFile = core.GetTodoListFromFile
 	cmd.Execute()
 }
