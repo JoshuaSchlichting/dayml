@@ -5,7 +5,7 @@
 ## *`.yml` files*
 `.yml` files contain _at least_ the following:
 ```
-<yyymmdd>:
+<yyyymmdd>:
   todo:
     a todo objective: <bool representing completed status>
     another task: true # completed
