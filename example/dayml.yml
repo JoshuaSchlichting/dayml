@@ -1,0 +1,9 @@
+20220101:
+  activities:
+    - finished unit testing suite for ACME project
+    - paired programming with Alexandra
+  meetings:
+    - meet with tom
+  todo:
+    complete pull requests: false
+    create new IAM roles: true
