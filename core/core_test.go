@@ -32,7 +32,7 @@ func init() {
 
 func TestCreateDaymlFromPayload(t *testing.T) {
 
-	dayml, err := NewDaymlList(payload)
+	dayml, err := sortedDaymlList(payload)
 	if err != nil {
 		t.Errorf("error: %v", err)
 	}

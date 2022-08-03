@@ -9,53 +9,62 @@ import (
 
 type Todo map[string]bool
 
+type Dayml []DaymlRootObject
+
+func (d Dayml) GetTodoList(isCompleted bool) []string {
+	todoList := make([]string, 0)
+	for _, rootObject := range d {
+		for key, completedStatus := range rootObject.Todo {
+			if completedStatus == isCompleted {
+				todoList = append(todoList, fmt.Sprintf("%d - %s", rootObject.Date, key))
+			}
+		}
+	}
+	return todoList
+}
+
 type DaymlRootObject struct {
 	Date int
 	Todo Todo `yaml:"todo"`
 }
 
-func GetTodoListFromFile(filePath string) (map[string]bool, error) {
+func DaymlFromFile(filePath string) (Dayml, error) {
 	payload, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return nil, err
 	}
-	rootObjects, err := NewDaymlList(payload)
+	rootObjects, err := sortedDaymlList(payload)
 	if err != nil {
 		return nil, err
 	}
-	return GetToDoList(rootObjects), nil
+	return rootObjects, nil
 }
 
-func NewDaymlList(yamlPayload []byte) (rootObjects []DaymlRootObject, err error) {
+func sortedDaymlList(yamlPayload []byte) (rootObjects []DaymlRootObject, err error) {
 	interfaceMap := make(map[int]map[string]interface{})
 	err = yaml.Unmarshal(yamlPayload, interfaceMap)
 	if err != nil {
 		return rootObjects, err
 	}
 
-	for date := range interfaceMap {
-		newTodo := make(map[string]bool)
+	sortedKeys := make([]int, 0)
+	for key := range interfaceMap {
+		sortedKeys = append(sortedKeys, key)
+	}
 
-		for i, v := range interfaceMap[date]["todo"].(map[string]interface{}) {
-			newTodo[i] = v.(bool)
+	for i := range sortedKeys {
+		newTodo := make(map[string]bool)
+		dateKey := sortedKeys[i]
+		for k, v := range interfaceMap[dateKey]["todo"].(map[string]interface{}) {
+			newTodo[k] = v.(bool)
 		}
 
 		daymlRootObject := DaymlRootObject{
-			Date: date,
+			Date: dateKey,
 			Todo: newTodo,
 		}
 
 		rootObjects = append(rootObjects, daymlRootObject)
 	}
 	return rootObjects, nil
-}
-
-func GetToDoList(rootObjects []DaymlRootObject) map[string]bool {
-	todoList := make(Todo)
-	for _, rootObject := range rootObjects {
-		for key, value := range rootObject.Todo {
-			todoList[fmt.Sprintf("%v - %s", rootObject.Date, key)] = value
-		}
-	}
-	return todoList
 }

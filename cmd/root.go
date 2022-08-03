@@ -1,14 +1,13 @@
 package cmd
 
 import (
+	"dayml/core"
 	"fmt"
 	"log"
 	"os"
 
 	"github.com/spf13/cobra"
 )
-
-var GetTodoListFromFile func(string) (map[string]bool, error)
 
 func init() {
 }
@@ -43,18 +42,16 @@ func Execute() {
 		fmt.Printf("Please specify a file path via \"--file\" or create a .dayml.yml file in the current working directory.\n")
 	}
 
-	todoList, _ := GetTodoListFromFile(filePath)
-	if todoList == nil {
+	daymlObj, _ := core.DaymlFromFile(filePath)
+	if daymlObj == nil {
 		log.Fatal("Error parsing file")
 	}
-	if len(todoList) == 0 {
+	if len(daymlObj) == 0 {
 		log.Fatal("No TODO items found")
 	}
 	fmt.Print("The following tasks are incomplete: \n")
-	for k, v := range todoList {
-		if !v {
-			fmt.Printf("%s\n", k)
-		}
+	for _, item := range daymlObj.GetTodoList(false) {
+		fmt.Printf("%s\n", item)
 	}
 }
 
