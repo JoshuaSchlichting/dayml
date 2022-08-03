@@ -1,4 +1,16 @@
-20220101:
+20220103:
+  dow: mond
+  activities:
+    - finished unit testing suite for ACME project
+    - paired programming with Alexandra
+  meetings:
+    - meet with tom
+  todo:
+    uninstall reactjs: false
+    install vuejs: true
+    create software requirement spec docs: false
+20220102:
+  dow: sun
   activities:
     - finished unit testing suite for ACME project
     - paired programming with Alexandra
@@ -8,3 +20,14 @@
     complete pull requests: false
     create new IAM roles: true
     create TLS certificate cache: false
+20220101:
+  dow: sat
+  activities:
+    - finished unit testing suite for ACME project
+    - paired programming with Alexandra
+  meetings:
+    - meet with tom
+  todo:
+    finish up TPS reports: false
+    schedule code reviews: true
+    contact DevOps regarding CI roles: false

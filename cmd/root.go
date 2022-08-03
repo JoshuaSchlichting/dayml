@@ -50,8 +50,8 @@ func Execute() {
 		log.Fatal("No TODO items found")
 	}
 	fmt.Print("The following tasks are incomplete: \n")
-	for _, item := range daymlObj.GetTodoList(false) {
-		fmt.Printf("%s\n", item)
+	for _, todo := range daymlObj.GetTodoList(false) {
+		fmt.Printf("%s\n", todo)
 	}
 }
 

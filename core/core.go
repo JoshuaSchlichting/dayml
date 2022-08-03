@@ -14,6 +14,7 @@ type Dayml []DaymlRootObject
 func (d Dayml) GetTodoList(isCompleted bool) []string {
 	todoList := make([]string, 0)
 	for _, rootObject := range d {
+
 		for key, completedStatus := range rootObject.Todo {
 			if completedStatus == isCompleted {
 				todoList = append(todoList, fmt.Sprintf("%d - %s", rootObject.Date, key))
