@@ -1,5 +1,10 @@
+20220104:
+  dow: tue
+  todo:
+    push some buttons: false
+    learn golang: true
 20220103:
-  dow: mond
+  dow: mon
   activities:
     - finished unit testing suite for ACME project
     - paired programming with Alexandra
