@@ -3,6 +3,7 @@ package core
 import (
 	"fmt"
 	"io/ioutil"
+	"sort"
 
 	yaml "gopkg.in/yaml.v3"
 )
@@ -52,7 +53,7 @@ func sortedDaymlList(yamlPayload []byte) (rootObjects []DaymlRootObject, err err
 	for key := range interfaceMap {
 		sortedKeys = append(sortedKeys, key)
 	}
-
+	sort.Ints(sortedKeys)
 	for i := range sortedKeys {
 		newTodo := make(map[string]bool)
 		dateKey := sortedKeys[i]
