@@ -50,6 +50,9 @@ func init() {
   todo:
     task1: false
     task2: true
+20211231:
+  activities:
+    - New years! woot!
 `)
 }
 
@@ -69,6 +72,7 @@ func TestDaymlObjectsAreSortedInChronOrder(t *testing.T) {
 	}
 
 	expectedDates := []int{
+		20211231,
 		20220101,
 		20220120,
 		20220127,
