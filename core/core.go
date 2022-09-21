@@ -54,11 +54,16 @@ func sortedDaymlList(yamlPayload []byte) (rootObjects []DaymlRootObject, err err
 		sortedKeys = append(sortedKeys, key)
 	}
 	sort.Ints(sortedKeys)
+
 	for i := range sortedKeys {
 		newTodo := make(map[string]bool)
 		dateKey := sortedKeys[i]
-		for k, v := range interfaceMap[dateKey]["todo"].(map[string]interface{}) {
-			newTodo[k] = v.(bool)
+		for key, value := range interfaceMap[dateKey] {
+			if key == "todo" {
+				for todoKey, todoValue := range value.(map[string]interface{}) {
+					newTodo[todoKey] = todoValue.(bool)
+				}
+			}
 		}
 
 		daymlRootObject := DaymlRootObject{
