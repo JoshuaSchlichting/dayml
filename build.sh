@@ -2,9 +2,9 @@ APP_NAME=dayml
 
 if [[ $(uname -m) == "x86_64" ]]; then
     APP_ARCH=amd64
-elif [[ "$uname -m" == "i686" ]]; then
+elif [[ $(uname -m) == "i686" ]]; then
     APP_ARCH=386
-elif [[ "$uname -m" == "arm64" ]]; then
+elif [[ $(uname -m) == "arm64" ]]; then
     APP_ARCH=arm64
 else
     echo "Unsupported architecture: $(uname -m)"
